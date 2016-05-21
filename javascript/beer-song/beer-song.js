@@ -1,10 +1,8 @@
 module.exports = function() {
   'use strict';
+  const item = (num) => num > 1 ? 'one' : 'it';
 
-  var finalPhrase =
-    'Go to the store and buy some more, 99 bottles of beer on the wall.\n';
-
-  var bottlesLeft = function(numOfBottles) {
+  const bottlesLeft = (numOfBottles) => {
     if (numOfBottles > 1) {
       return numOfBottles + ' bottles';
     } else if (numOfBottles === 1) {
@@ -14,34 +12,38 @@ module.exports = function() {
     }
   };
 
-  var item = function(num) {
-    if (num > 1) {
-      return 'one';
-    } else {
-      return 'it';
-    }
-  };
+  const pluralHalf = (verse) =>
+    `Take ${item(verse)} down and pass it around, ${bottlesLeft(
+            verse - 1).toLowerCase()} of beer on the wall.\n`;
 
-  var secondSentence = function(verse) {
+  const finalHalf =
+    'Go to the store and buy some more, 99 bottles of beer on the wall.\n';
+
+  const firstHalf = (verse) =>
+    bottlesLeft(verse) + ' of beer on the wall, ' + bottlesLeft(
+      verse).toLowerCase() + ' of beer.\n';
+
+  const secondHalf = (verse) => {
     if (verse >= 1) {
-      return 'Take ' + item(verse) +
-        ' down and pass it around, ' + bottlesLeft(verse - 1).toLowerCase() +
-        ' of beer on the wall.\n';
+      return pluralHalf(verse);
     } else {
-      return finalPhrase;
+      return finalHalf;
     }
   };
 
-  this.verse = function(verse) {
-    return bottlesLeft(verse) + ' of beer on the wall, ' + bottlesLeft(
-      verse).toLowerCase() + ' of beer.\n' + secondSentence(verse);
-  };
+  const verse = (verse) =>
+    firstHalf(verse) + secondHalf(verse);
 
-  this.sing = function(from, to = 0) {
+  const sing = (from, to = 0) => {
     var song = [];
     for (var i = from; i >= to; i--) {
-      song.push(this.verse(i));
+      song.push(verse(i));
     }
     return song.join('\n');
+  };
+
+  return {
+    verse: verse,
+    sing: sing
   };
 };
