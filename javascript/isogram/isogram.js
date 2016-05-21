@@ -17,7 +17,7 @@ module.exports = function(str) {
   'use strict';
 
   this.isIsogram = function() {
-    var charCounts = str.toLowerCase().match(/\w/g);
-    return charCounts.length === charCounts.unique().length;
+    var chars = str.toLowerCase().match(/\w/g);
+    return chars.length === chars.unique().length;
   };
 };
