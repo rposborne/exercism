@@ -1,19 +1,16 @@
 module.exports = function() {
   'use strict';
 
-  this.count = function(paragraph) {
-    var histogram = {};
-    var words = paragraph.toLowerCase().trim().split(/\s+/);
-    for (var i = 0; i < words.length; i++) {
-      var word = words[i];
-
-      if (histogram.hasOwnProperty(word)) {
-        histogram[word]++;
-      } else {
-        histogram[word] = 1;
-      }
-
+  var wordCounter = function(hist, word) {
+    if (hist.hasOwnProperty(word)) {
+      hist[word]++;
+    } else {
+      hist[word] = 1;
     }
-    return histogram;
+    return hist;
+  };
+
+  this.count = function(str) {
+    return str.toLowerCase().trim().split(/\s+/).reduce(wordCounter, {});
   };
 };
