@@ -4,7 +4,7 @@ module.exports = function(formattedNumber) {
     let digits = formattedNumber.match(/\d/g);
 
     if (Number(digits[0]) === 1 && digits.length === 11) {
-      digits.shift()
+      digits.shift();
     } else if (digits.length !== 10) {
       digits = '0000000000'.split('');
     }
