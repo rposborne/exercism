@@ -1,14 +1,14 @@
 module Pangram
   VERSION = 1
-  def self.is_pangram?(str)
-    str
-      .downcase
-      .each_char
-      .each_with_object(alphabet) { |e, a| a[e] = 1 if a.key?(e) }
-      .all? { |_, v| v > 0 }
+  ALPHABET_LENGTH = 26
+
+  def is_pangram?(str)
+    (alphabet & str.downcase.scan(/\w/)).size == ALPHABET_LENGTH
   end
 
-  def self.alphabet
-    Hash[("a".."z").map { |a| [a, 0] }]
+  def alphabet
+    ("a".."z").to_a
   end
+
+  Pangram.extend(Pangram)
 end
